@@ -16,5 +16,5 @@ var documentation = new Thoth().document(string_full_of_source_code, 'Library na
 
 #### Methods
 
-`String` **document**`(String sourceCode[, String name])` -- Accepts source code and makes docs
+`String` **document**`({String sourceCode[, String name]})` -- Accepts source code and makes docs
 

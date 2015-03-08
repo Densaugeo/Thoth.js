@@ -102,11 +102,15 @@ var Thoth = function(options) {
     }
   }
   
-  // @method String document(String sourceCode[, String name]) -- Accepts source code and makes docs
-  this.document = function(sourceCode, name) {
-    scan(sourceCode);
+  // @method String document({String sourceCode[, String name]}) -- Accepts source code and makes docs
+  this.document = function(params) {
+    if(params.sourceCode === undefined) {
+      throw new Error('Thoth.document(): params.sourceCode not defined');
+    }
     
-    write2('# ' + name);
+    scan(params.sourceCode);
+    
+    write2('# ' + params.name);
     
     if(nonModule.description) {
       write2(nonModule.description);

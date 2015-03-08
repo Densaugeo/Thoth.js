@@ -11,4 +11,4 @@ if(process.argv.length > 2) {
 }
 
 var thoth = new Thoth();
-thoth.document(fs.readFileSync(sourceFile, 'utf8'), path.basename(sourceFile));
+thoth.document({name: path.basename(sourceFile), sourceCode: fs.readFileSync(sourceFile, 'utf8')});
