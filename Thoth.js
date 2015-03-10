@@ -133,6 +133,10 @@ var Thoth = function(options) {
     
     write2(dependencyString);
     
+    if(nonModule.example) {
+      write2('```\n' + nonModule.example + '\n```');
+    }
+    
     writeSections(nonModule);
     
     modules.forEach(function(v, i, a) {
