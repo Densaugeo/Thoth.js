@@ -61,42 +61,46 @@ var Thoth = function(options) {
       if(declarationFormat.test(sourceLines[i])) {
         var line = declarationFormat.exec(sourceLines[i])[1];
         
-        var declarationType = line.split(/\s/)[0];
-        
-        switch(declarationType) {
-          case '@depends':
-            var bits = /@depends\s+(\S+)(?:\s+(\S+))?/.exec(line);
-            dependencies.push({name: bits[1], version: bits[2] || ''});
-            break;
-          case '@module':
-            var bits = /@module\s*(\S*)\s*(?:inherits\s*(\S*))?/.exec(line);
-            modules.push({name: bits[1], inherits: bits[2] || '', options: [], props: [], methods: [], events: []});
-            currentModule = modules.slice(-1)[0];
-            break;
-          case '@description':
-            var bits = /@description\s+(.+)/.exec(line);
-            currentModule.description = (currentModule.description ? currentModule.description + '\n\n': '') + bits[1];
-            break;
-          case '@example':
-            var bits = /@example\s+(.+)/.exec(line);
-            currentModule.example = (currentModule.example ? currentModule.example + '\n': '') + bits[1];
-            break;
-          case '@option':
-            var bits = /@option\s+(\S+)\s+(\S+)(?:\s+(.+))?/.exec(line);
-            currentModule.options.push({type: bits[1], name: bits[2], description: bits[3] || ''});
-            break;
-          case '@prop':
-            var bits = /@prop(\s+proto)?\s+(\S+)\s+(\S+)(?:\s+(.+))?/.exec(line);
-            currentModule.props.push({proto: Boolean(bits[1]), type: bits[2], name: bits[3], description: bits[4] || ''});
-            break;
-          case '@method':
-            var bits = /@method(\s+proto)?\s+(\S+)\s+(\S+)(\([^\(\)]*\))(?:\s+(.+))?/.exec(line);
-            currentModule.methods.push({proto: Boolean(bits[1]), type: bits[2], name: bits[3], signature: bits[4], description: bits[5] || ''});
-            break;
-          case '@event':
-            var bits = /@event\s+(\S+)\s+(\{.*\})(?:\s+(.+))?/.exec(line);
-            currentModule.events.push({name: bits[1], signature: bits[2], description: bits[3]});
-            break;
+        try {
+          var declarationType = line.split(/\s/)[0];
+          
+          switch(declarationType) {
+            case '@depends':
+              var bits = /@depends\s+(\S+)(?:\s+(\S+))?/.exec(line);
+              dependencies.push({name: bits[1], version: bits[2] || ''});
+              break;
+            case '@module':
+              var bits = /@module\s*(\S*)\s*(?:inherits\s*(\S*))?/.exec(line);
+              modules.push({name: bits[1], inherits: bits[2] || '', options: [], props: [], methods: [], events: []});
+              currentModule = modules.slice(-1)[0];
+              break;
+            case '@description':
+              var bits = /@description\s+(.+)/.exec(line);
+              currentModule.description = (currentModule.description ? currentModule.description + '\n\n': '') + bits[1];
+              break;
+            case '@example':
+              var bits = /@example\s+(.+)/.exec(line);
+              currentModule.example = (currentModule.example ? currentModule.example + '\n': '') + bits[1];
+              break;
+            case '@option':
+              var bits = /@option\s+(\S+)\s+(\S+)(?:\s+(.+))?/.exec(line);
+              currentModule.options.push({type: bits[1], name: bits[2], description: bits[3] || ''});
+              break;
+            case '@prop':
+              var bits = /@prop(\s+proto)?\s+(\S+)\s+(\S+)(?:\s+(.+))?/.exec(line);
+              currentModule.props.push({proto: Boolean(bits[1]), type: bits[2], name: bits[3], description: bits[4] || ''});
+              break;
+            case '@method':
+              var bits = /@method(\s+proto)?\s+(\S+)\s+(\S+)(\([^\(\)]*\))(?:\s+(.+))?/.exec(line);
+              currentModule.methods.push({proto: Boolean(bits[1]), type: bits[2], name: bits[3], signature: bits[4], description: bits[5] || ''});
+              break;
+            case '@event':
+              var bits = /@event\s+(\S+)\s+(\{.*\})(?:\s+(.+))?/.exec(line);
+              currentModule.events.push({name: bits[1], signature: bits[2], description: bits[3]});
+              break;
+          }
+        } catch(e) {
+          console.error('Error parsing line ' + (i + 1) + ': "' + line + '"');
         }
       }
     }
