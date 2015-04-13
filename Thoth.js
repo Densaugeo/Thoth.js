@@ -79,7 +79,7 @@ var Thoth = function(options) {
               currentModule.description = (currentModule.description ? currentModule.description + '\n\n': '') + bits[1];
               break;
             case '@example':
-              var bits = /@example\s+(.+)/.exec(line);
+              var bits = /@example\s?(.*)/.exec(line);
               currentModule.example = (currentModule.example ? currentModule.example + '\n': '') + bits[1];
               break;
             case '@option':
