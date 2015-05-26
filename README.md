@@ -1,6 +1,6 @@
 # Thoth.js
 
-Very simple .md documneter. Recognizes the following comment directives:
+Very simple .md documenter. Recognizes the following comment directives:
 
 * @depends *name* [version]
 * @module *name* [inherits *another_name*]
