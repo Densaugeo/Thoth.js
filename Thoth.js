@@ -5,7 +5,7 @@
  * 
  * @example var documentation = new Thoth().document(string_full_of_source_code, 'Library name');
  */
-var Thoth = function(options) {
+var Thoth = function() {
   var declarationFormat = /.*(?:\/\/|\*)\s*(@(?:depends|module|description|example|option|prop|method|event).*)/;
   var dependencies = [];
   var nonModule = {options: [], props: [], methods: [], events: []};
@@ -24,7 +24,7 @@ var Thoth = function(options) {
     if(module.options.length > 0) {
       write2('#### Options');
       module.options.sort(compareByName);
-      module.options.forEach(function(v, i, a) {
+      module.options.forEach(function(v) {
         write2('`' + v.type + '` **' + v.name + '** ' + v.description);
       });
     }
@@ -32,7 +32,7 @@ var Thoth = function(options) {
     if(module.props.length > 0) {
       write2('#### Properties');
       module.props.sort(compareByName);
-      module.props.forEach(function(v, i, a) {
+      module.props.forEach(function(v) {
         write2('`' + v.type + '`' + (v.proto ? ' proto' : '') + ' **' + v.name + '** ' + v.description);
       });
     }
@@ -40,7 +40,7 @@ var Thoth = function(options) {
     if(module.methods.length > 0) {
       write2('#### Methods');
       module.methods.sort(compareByName);
-      module.methods.forEach(function(v, i, a) {
+      module.methods.forEach(function(v) {
         write2('`' + v.type + '`' + (v.proto ? ' proto' : '') + ' **' + v.name + '**`' + v.signature + '` ' + v.description);
       });
     }
@@ -48,7 +48,7 @@ var Thoth = function(options) {
     if(module.events.length > 0) {
       write2('#### Events');
       module.events.sort(compareByName);
-      module.events.forEach(function(v, i, a) {
+      module.events.forEach(function(v) {
         write2('**' + v.name + '** `' + v.signature + '` ' + v.description);
       });
     }
@@ -64,38 +64,40 @@ var Thoth = function(options) {
         try {
           var declarationType = line.split(/\s/)[0];
           
+          var bits = [];
+          
           switch(declarationType) {
             case '@depends':
-              var bits = /@depends\s+(\S+)(?:\s+(\S+))?/.exec(line);
+              bits = /@depends\s+(\S+)(?:\s+(\S+))?/.exec(line);
               dependencies.push({name: bits[1], version: bits[2] || ''});
               break;
             case '@module':
-              var bits = /@module\s*(\S*)\s*(?:inherits\s*(\S*))?/.exec(line);
+              bits = /@module\s*(\S*)\s*(?:inherits\s*(\S*))?/.exec(line);
               modules.push({name: bits[1], inherits: bits[2] || '', options: [], props: [], methods: [], events: []});
               currentModule = modules.slice(-1)[0];
               break;
             case '@description':
-              var bits = /@description\s+(.+)/.exec(line);
+              bits = /@description\s+(.+)/.exec(line);
               currentModule.description = (currentModule.description ? currentModule.description + '\n\n': '') + bits[1];
               break;
             case '@example':
-              var bits = /@example\s?(.*)/.exec(line);
+              bits = /@example\s?(.*)/.exec(line);
               currentModule.example = (currentModule.example ? currentModule.example + '\n': '') + bits[1];
               break;
             case '@option':
-              var bits = /@option\s+(\S+)\s+(\S+)(?:\s+(.+))?/.exec(line);
+              bits = /@option\s+(\S+)\s+(\S+)(?:\s+(.+))?/.exec(line);
               currentModule.options.push({type: bits[1], name: bits[2], description: bits[3] || ''});
               break;
             case '@prop':
-              var bits = /@prop(\s+proto)?\s+(\S+)\s+(\S+)(?:\s+(.+))?/.exec(line);
+              bits = /@prop(\s+proto)?\s+(\S+)\s+(\S+)(?:\s+(.+))?/.exec(line);
               currentModule.props.push({proto: Boolean(bits[1]), type: bits[2], name: bits[3], description: bits[4] || ''});
               break;
             case '@method':
-              var bits = /@method(\s+proto)?\s+(\S+)\s+(\S+)(\([^\(\)]*\))(?:\s+(.+))?/.exec(line);
+              bits = /@method(\s+proto)?\s+(\S+)\s+(\S+)(\([^\(\)]*\))(?:\s+(.+))?/.exec(line);
               currentModule.methods.push({proto: Boolean(bits[1]), type: bits[2], name: bits[3], signature: bits[4], description: bits[5] || ''});
               break;
             case '@event':
-              var bits = /@event\s+(\S+)\s+(\{.*\})(?:\s+(.+))?/.exec(line);
+              bits = /@event\s+(\S+)\s+(\{.*\})(?:\s+(.+))?/.exec(line);
               currentModule.events.push({name: bits[1], signature: bits[2], description: bits[3]});
               break;
           }
@@ -125,7 +127,7 @@ var Thoth = function(options) {
     if(dependencies.length === 0) {
       dependencyString += 'None';
     } else {
-      dependencies.forEach(function(v, i, a) {
+      dependencies.forEach(function(v) {
         dependencyString += ', `' + v.name + '` ' + v.version;
       });
       dependencyString = dependencyString.replace('Dependencies: , ', 'Dependencies: ');
@@ -139,7 +141,7 @@ var Thoth = function(options) {
     
     writeSections(nonModule);
     
-    modules.forEach(function(v, i, a) {
+    modules.forEach(function(v) {
       write2('---');
       write2('## ' + v.name);
       write2('Inherits: ' + (v.inherits ? '`' + v.inherits + '`' : 'None'));

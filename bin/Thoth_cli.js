@@ -2,7 +2,7 @@ process.title = 'Thoth';
 
 var fs = require('fs');
 var path = require('path');
-var Thoth = require('./Thoth.js');
+var Thoth = require(__dirname + '/..');
 
 if(process.argv.length > 2) {
   var sourceFile = process.argv[2];

@@ -1,0 +1,40 @@
+{
+  "name": "thoth-doc",
+  "description": "Creates simple .md formatted documentation from code comments",
+  "version": "0.0.0",
+  "main": "Thoth.js",
+  "homepage": "https://github.com/Densaugeo/Thoth.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Densaugeo/Thoth.js.git"
+  },
+  "keywords": [
+    "markdown",
+    "doc"
+  ],
+  "license": "LGPL-3.0",
+  "private": false,
+  "dependencies": {
+  },
+  "author": "Densaugeo <a@b.c> (http://www.madengineersworkshop.net/)",
+  "files": [
+    "bin",
+    "doc",
+    "LICENSE",
+    "package.json",
+    "README.md",
+    "Thoth.js"
+  ],
+  "bugs": "https://github.com/Densaugeo/Thoth.js/issues",
+  "devDependencies": {
+    "jshint": "~2.8.0"
+  },
+  "scripts": {
+    "lint": "jshint *.js bin/*.js",
+    "test": "node bin/Thoth_cli.js test/TestInput | diff test/TestInput.md -",
+    "doc": "node bin/Thoth_cli.js Thoth.js > doc/Thoth.md"
+  },
+  "bin": {
+    "thoth": "bin/Thoth_cli.js"
+  }
+}

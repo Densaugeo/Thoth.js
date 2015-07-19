@@ -1,4 +1,4 @@
-# thoth_test_input.js
+# TestInput
 
 This is some documentation with no code
 
