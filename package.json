@@ -1,22 +1,16 @@
 {
   "name": "thoth-doc",
+  "version": "0.0.3",
   "description": "Creates simple .md formatted documentation from code comments",
-  "version": "0.0.2",
-  "main": "Thoth.js",
-  "homepage": "https://github.com/Densaugeo/Thoth.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Densaugeo/Thoth.js.git"
-  },
   "keywords": [
     "markdown",
     "doc"
   ],
-  "license": "LGPL-3.0",
-  "private": false,
-  "dependencies": {
-  },
-  "author": "Densaugeo <a@b.c> (http://www.madengineersworkshop.net/)",
+  "homepage": "https://github.com/Densaugeo/Thoth.js",
+  "bugs": "https://github.com/Densaugeo/Thoth.js/issues",
+  "license": "LGPL-2.1+",
+  "author": "Densaugeo (http://www.madengineersworkshop.net/)",
+  "contributors": [],
   "files": [
     "bin",
     "doc",
@@ -25,15 +19,22 @@
     "README.md",
     "Thoth.js"
   ],
-  "bugs": "https://github.com/Densaugeo/Thoth.js/issues",
-  "devDependencies": {
-    "jshint": "~2.8.0"
+  "main": "Thoth.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Densaugeo/Thoth.js.git"
   },
   "scripts": {
     "lint": "jshint *.js bin/*.js",
     "test": "node bin/Thoth_cli.js test/TestInput | diff test/TestInput.md -",
     "doc": "node bin/Thoth_cli.js Thoth.js > doc/Thoth.md"
   },
+  "config": {},
+  "dependencies": {},
+  "devDependencies": {
+    "jshint": "~2.8.0"
+  },
+  "engines": {},
   "bin": {
     "thoth": "bin/Thoth_cli.js"
   }
