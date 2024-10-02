@@ -3,7 +3,7 @@
 Very simple .md documenter. Reads source files and returns .md files.
 
 [![Code Climate](https://codeclimate.com/github/Densaugeo/Thoth.js/badges/gpa.svg)](https://codeclimate.com/github/Densaugeo/Thoth.js)
-[![Build Status](https://travis-ci.com/Densaugeo/Thoth.js.svg?branch=master)](https://travis-ci.com/github/Densaugeo/Thoth.js)
+[![Build Status](https://app.travis-ci.com/Densaugeo/Thoth.js.svg?branch=master)](https://app.travis-ci.com/github/Densaugeo/Thoth.js)
 
 
 
